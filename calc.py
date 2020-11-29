@@ -61,7 +61,6 @@ def generate_ally_levels():
 
     xlabels = [f"{i[0]} - {i[1]:02}" for i in xval]
     x = [datetime.datetime.strptime(str(i[0])+str(i[1]), '%Y%m') for i in xval]
-
     labels = ["Submastery ", "Mastery", "Ascension"]
 
     fig, ax = plt.subplots(dpi=200, figsize=(10,5))
@@ -81,7 +80,6 @@ def generate_ally_levels():
     plt.show()
 
 
-
 def generate_histogram():
     levels = [i[2] for i in data]
     mlevels = [i for i in levels if 0 < i <= 90] #mastery
@@ -91,7 +89,6 @@ def generate_histogram():
     ### HISTOGRAM
     fig, ax = plt.subplots(dpi=200, figsize=(10,5))
     ax.hist(levels, bins=100, range=(1,1000))
-    # plt.gcf().set_size_inches(fig_size)
     plt.title('Ally mastery+ level distribution')
     plt.xlabel('Mastery/ascension levels')
     plt.ylabel('Games')
@@ -99,7 +96,7 @@ def generate_histogram():
     plt.text(90, 330, ' Full mastery')
     plt.show()
 
-# generate_ally_levels()
+generate_ally_levels()
 generate_histogram()
 
 
