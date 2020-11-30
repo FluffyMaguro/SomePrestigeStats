@@ -58,7 +58,20 @@ def generate_ally_levels():
             current_month = (year, month)
             new_data = list()
 
+    # Do the same thing for the last month
+    levels = [i[2] for i in new_data]
+    slevels = [i for i in levels if i == 0]
+    mlevels = [i for i in levels if 0 < i <= 90] #mastery
+    alevels = [i for i in levels if 90 < i] #ascension
 
+    print(current_month, 100*len(slevels)/len(levels), len(levels))
+
+    xval.append(current_month)
+    yval_sub.append(100*len(slevels)/len(levels))
+    yval_asc.append(100*len(alevels)/len(levels))
+    yval_mas.append(100*len(mlevels)/len(levels))
+
+    # Plotting
     xlabels = [f"{i[0]} - {i[1]:02}" for i in xval]
     x = [datetime.datetime.strptime(str(i[0])+str(i[1]), '%Y%m') for i in xval]
     labels = ["Submastery ", "Mastery", "Ascension"]
@@ -97,7 +110,7 @@ def generate_histogram():
     plt.show()
 
 generate_ally_levels()
-generate_histogram()
+# generate_histogram()
 
 
 ### PIE CHART (no useful information here)
