@@ -72,7 +72,7 @@ def generate_ally_levels():
     yval_mas.append(100*len(mlevels)/len(levels))
 
     # Plotting
-    xlabels = [f"{i[0]} - {i[1]:02}" for i in xval]
+    xlabels = [f"{i[0]} / {i[1]:02}" for i in xval]
     x = [datetime.datetime.strptime(str(i[0])+str(i[1]), '%Y%m') for i in xval]
     labels = ["Submastery ", "Mastery", "Ascension"]
 
@@ -87,7 +87,7 @@ def generate_ally_levels():
     ax.yaxis.set_major_formatter(mtick.PercentFormatter())
 
     ax.legend(loc='upper center')
-    plt.subplots_adjust(bottom=0.20)
+    plt.subplots_adjust(bottom=0.20, left=0.09, right=0.95, top=0.93)
     plt.title('Ally levels in StarCraft II Co-op')
     plt.ylabel('Percent of games')
     plt.show()
