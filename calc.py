@@ -14,8 +14,6 @@ for idx, i in enumerate(data):
     data[idx][3] = int(i[3].replace(':',''))
 
 data = sorted(data, key=lambda x:x[3])
-data = [i for i in data if i[1] != 'Potato' and i[0][:3] != '98-']
-
 
 # [handle, name, level, date]
 # min date: 20171228210954 (after ascension was released)
