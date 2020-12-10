@@ -30,7 +30,7 @@ for r in AllReplays:
             name = rep['players'][p]['name']
             date = rep['date']
 
-            if name in ('Maguro','BigMaguro','SeaMaguro','Ziemson','Ancalagon','Potato') or handle[:3] != '98-':
+            if name in ('Maguro','BigMaguro','SeaMaguro','Ziemson','Ancalagon','Potato') or handle[:3] == '98-':
                 continue
 
             level_data.append((handle, name, level, date))
