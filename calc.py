@@ -27,6 +27,7 @@ def generate_ally_levels():
     yval_sub = list()
     yval_asc = list()
     yval_mas = list()
+    yval_full = list()
 
     for rep in data:
         year = rep[3]//10**10
@@ -41,9 +42,10 @@ def generate_ally_levels():
         else:
             # Analyse previous month   
             levels = [i[2] for i in new_data]
-            slevels = [i for i in levels if i == 0]
+            slevels = [i for i in levels if i == 0] #submastery
             mlevels = [i for i in levels if 0 < i <= 90] #mastery
-            alevels = [i for i in levels if 90 < i] #ascension
+            alevels = [i for i in levels if 90 < i < 1000] #ascension
+            flevels = [i for i in levels if 1000 == i] #full
 
             print(current_month, 100*len(slevels)/len(levels), len(levels))
 
@@ -51,6 +53,7 @@ def generate_ally_levels():
             yval_sub.append(100*len(slevels)/len(levels))
             yval_asc.append(100*len(alevels)/len(levels))
             yval_mas.append(100*len(mlevels)/len(levels))
+            yval_full.append(100*len(flevels)/len(levels))
 
             # Update month
             current_month = (year, month)
@@ -58,9 +61,10 @@ def generate_ally_levels():
 
     # Do the same thing for the last month
     levels = [i[2] for i in new_data]
-    slevels = [i for i in levels if i == 0]
+    slevels = [i for i in levels if i == 0] #submastery
     mlevels = [i for i in levels if 0 < i <= 90] #mastery
-    alevels = [i for i in levels if 90 < i] #ascension
+    alevels = [i for i in levels if 90 < i < 1000] #ascension
+    flevels = [i for i in levels if 1000 == i] #full
 
     print(current_month, 100*len(slevels)/len(levels), len(levels))
 
@@ -68,14 +72,15 @@ def generate_ally_levels():
     yval_sub.append(100*len(slevels)/len(levels))
     yval_asc.append(100*len(alevels)/len(levels))
     yval_mas.append(100*len(mlevels)/len(levels))
+    yval_full.append(100*len(flevels)/len(levels))
 
     # Plotting
     xlabels = [f"{i[0]} / {i[1]:02}" for i in xval]
     x = [datetime.datetime.strptime(str(i[0])+str(i[1]), '%Y%m') for i in xval]
-    labels = ["Submastery ", "Mastery", "Ascension"]
+    labels = ["Submastery ", "Mastery", "Ascension","1000"]
 
     fig, ax = plt.subplots(dpi=200, figsize=(10,5))
-    ax.stackplot(x, yval_sub, yval_mas, yval_asc, labels=labels)
+    ax.stackplot(x, yval_sub, yval_mas, yval_asc, yval_full, labels=labels)
 
     prestige_path = datetime.datetime.strptime('2020:8', '%Y:%m')
     plt.plot([prestige_path,prestige_path],[0,100],'k-',lw=0.5)
@@ -84,7 +89,7 @@ def generate_ally_levels():
     plt.xticks(x, rotation='vertical', labels=xlabels)
     ax.yaxis.set_major_formatter(mtick.PercentFormatter())
 
-    ax.legend(loc='upper center')
+    ax.legend(loc='center')
     plt.subplots_adjust(bottom=0.20, left=0.09, right=0.95, top=0.93)
     plt.title('Ally levels in StarCraft II Co-op')
     plt.ylabel('Percent of games')
